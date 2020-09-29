@@ -148,7 +148,6 @@
 -   [Record.Value](typealiases/Record.Value/)
 -   [ResultMap](typealiases/ResultMap/)
 -   [URLSessionClient.Completion](typealiases/URLSessionClient.Completion/)
--   [URLSessionClient.RawCompletion](typealiases/URLSessionClient.RawCompletion/)
 
 ## Methods
 

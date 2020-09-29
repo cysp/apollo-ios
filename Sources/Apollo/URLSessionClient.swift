@@ -36,9 +36,6 @@ open class URLSessionClient: NSObject, URLSessionDelegate, URLSessionTaskDelegat
     }
   }
   
-  /// A completion block to be called when the raw task has completed, with the raw information from the session
-  public typealias RawCompletion = (Data?, HTTPURLResponse?, Error?) -> Void
-  
   /// A completion block returning a result. On `.success` it will contain a tuple with non-nil `Data` and its corresponding `HTTPURLResponse`. On `.failure` it will contain an error.
   public typealias Completion = (Result<(Data, HTTPURLResponse), Error>) -> Void
   
@@ -109,13 +106,11 @@ open class URLSessionClient: NSObject, URLSessionDelegate, URLSessionTaskDelegat
   ///
   /// - Parameters:
   ///   - request: The request to perform.
-  ///   - rawTaskCompletionHandler: [optional] A completion handler to call once the raw task is done, so if an Error requires access to the headers, the user can still access these.
   ///   - completion: A completion handler to call when the task has either completed successfully or failed.
   ///
   /// - Returns: The created URLSession task, already resumed, because nobody ever remembers to call `resume()`.
   @discardableResult
   open func sendRequest(_ request: URLRequest,
-                        rawTaskCompletionHandler: RawCompletion? = nil,
                         completion: @escaping Completion) -> URLSessionTask {
     guard self.hasNotBeenInvalidated else {
       completion(.failure(URLSessionClientError.sessionInvalidated))
@@ -123,8 +118,7 @@ open class URLSessionClient: NSObject, URLSessionDelegate, URLSessionTaskDelegat
     }
     
     let task = self.session.dataTask(with: request)
-    let taskData = TaskData(rawCompletion: rawTaskCompletionHandler,
-                            completionBlock: completion)
+    let taskData = TaskData(completionBlock: completion)
     
     self.tasks.mutate { $0[task.taskIdentifier] = taskData }
     
@@ -200,10 +194,6 @@ open class URLSessionClient: NSObject, URLSessionDelegate, URLSessionTaskDelegat
     
     let data = taskData.data
     let response = taskData.response
-    
-    if let rawCompletion = taskData.rawCompletion {
-      rawCompletion(data, response, error)
-    }
     
     let completion = taskData.completionBlock
     

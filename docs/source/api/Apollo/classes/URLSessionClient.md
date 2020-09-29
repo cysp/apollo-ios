@@ -81,11 +81,10 @@ Clears underlying dictionaries of any data related to all tasks.
 
 Mostly useful for cleanup and/or after invalidation of the `URLSession`.
 
-### `sendRequest(_:rawTaskCompletionHandler:completion:)`
+### `sendRequest(_:completion:)`
 
 ```swift
 open func sendRequest(_ request: URLRequest,
-                      rawTaskCompletionHandler: RawCompletion? = nil,
                       completion: @escaping Completion) -> URLSessionTask
 ```
 
@@ -93,7 +92,6 @@ The main method to perform a request.
 
 - Parameters:
   - request: The request to perform.
-  - rawTaskCompletionHandler: [optional] A completion handler to call once the raw task is done, so if an Error requires access to the headers, the user can still access these.
   - completion: A completion handler to call when the task has either completed successfully or failed.
 
 - Returns: The created URLSession task, already resumed, because nobody ever remembers to call `resume()`.
@@ -103,7 +101,6 @@ The main method to perform a request.
 | Name | Description |
 | ---- | ----------- |
 | request | The request to perform. |
-| rawTaskCompletionHandler | [optional] A completion handler to call once the raw task is done, so if an Error requires access to the headers, the user can still access these. |
 | completion | A completion handler to call when the task has either completed successfully or failed. |
 
 ### `cancel(task:)`
