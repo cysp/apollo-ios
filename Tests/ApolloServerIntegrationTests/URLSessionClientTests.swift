@@ -158,7 +158,7 @@ class URLSessionClientLiveTests: XCTestCase {
       expectation.fulfill()
     }
     
-    self.client.cancel(task: task)
+    self.client.cancel(task: task as! URLSessionTask)
     
     self.wait(for: [expectation], timeout: 5)
     
@@ -202,7 +202,7 @@ class URLSessionClientLiveTests: XCTestCase {
         }
       }
       
-      taskIDs.mutate { $0.append(task.taskIdentifier) }
+      taskIDs.mutate { $0.append((task as! URLSessionTask).taskIdentifier) }
     })
     
     self.wait(for: [expectation], timeout: 30)

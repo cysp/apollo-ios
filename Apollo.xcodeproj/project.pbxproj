@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3D126D67252F51890074F66C /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D126D66252F51890074F66C /* HTTPClient.swift */; };
 		54DDB0921EA045870009DD99 /* InMemoryNormalizedCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54DDB0911EA045870009DD99 /* InMemoryNormalizedCache.swift */; };
 		5AC6CA4322AAF7B200B7C94D /* GraphQLHTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AC6CA4222AAF7B200B7C94D /* GraphQLHTTPMethod.swift */; };
 		5BB2C0232380836100774170 /* VersionNumberTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB2C0222380836100774170 /* VersionNumberTests.swift */; };
@@ -503,6 +504,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3D126D66252F51890074F66C /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
 		54DDB0911EA045870009DD99 /* InMemoryNormalizedCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InMemoryNormalizedCache.swift; sourceTree = "<group>"; };
 		5AC6CA4222AAF7B200B7C94D /* GraphQLHTTPMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphQLHTTPMethod.swift; sourceTree = "<group>"; };
 		5BB2C0222380836100774170 /* VersionNumberTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionNumberTests.swift; sourceTree = "<group>"; };
@@ -1495,6 +1497,7 @@
 			isa = PBXGroup;
 			children = (
 				9BDE43D022C6655200FD7C7F /* Cancellable.swift */,
+				3D126D66252F51890074F66C /* HTTPClient.swift */,
 				9BE071AE2368D34D00FA5952 /* Matchable.swift */,
 				9B260BEC245A021300562176 /* Parseable.swift */,
 				9B260BEE245A022E00562176 /* FlexibleDecoder.swift */,
@@ -2718,6 +2721,7 @@
 			files = (
 				C377CCAB22D7992E00572E03 /* MultipartFormData.swift in Sources */,
 				9B260C08245A437400562176 /* InterceptorProvider.swift in Sources */,
+				3D126D67252F51890074F66C /* HTTPClient.swift in Sources */,
 				9B9BBAF324DB39D70021C30F /* UploadRequest.swift in Sources */,
 				9FCE2CEE1E6BE2D900E34457 /* NormalizedCache.swift in Sources */,
 				9B260C0A245A532500562176 /* LegacyParsingInterceptor.swift in Sources */,

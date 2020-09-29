@@ -11,7 +11,7 @@ import ApolloCore
 /// documentation for how the delegate methods work and what needs to be overridden
 /// and handled within your app, particularly in regards to what needs to be called
 /// when for background sessions.
-open class URLSessionClient: NSObject, URLSessionDelegate, URLSessionTaskDelegate, URLSessionDataDelegate {
+open class URLSessionClient: NSObject, HTTPClient, URLSessionDelegate, URLSessionTaskDelegate, URLSessionDataDelegate {
   
   public enum URLSessionClientError: Error, LocalizedError {
     case noHTTPResponse(request: URLRequest?)
@@ -27,7 +27,7 @@ open class URLSessionClient: NSObject, URLSessionDelegate, URLSessionTaskDelegat
       case .sessionBecameInvalidWithoutUnderlyingError:
         return "The URL session became invalid, but no underlying error was returned."
       case .dataForRequestNotFound(let request):
-        return "URLSessionClient was not able to locate the stored data for request \(String(describing: request))"
+        return "HTTPClient was not able to locate the stored data for request \(String(describing: request))"
       case .networkError(_, _, let underlyingError):
         return "A network error occurred: \(underlyingError.localizedDescription)"
       case .sessionInvalidated:
@@ -35,9 +35,6 @@ open class URLSessionClient: NSObject, URLSessionDelegate, URLSessionTaskDelegat
       }
     }
   }
-  
-  /// A completion block returning a result. On `.success` it will contain a tuple with non-nil `Data` and its corresponding `HTTPURLResponse`. On `.failure` it will contain an error.
-  public typealias Completion = (Result<(Data, HTTPURLResponse), Error>) -> Void
   
   private var tasks = Atomic<[Int: TaskData]>([:])
   
@@ -111,7 +108,7 @@ open class URLSessionClient: NSObject, URLSessionDelegate, URLSessionTaskDelegat
   /// - Returns: The created URLSession task, already resumed, because nobody ever remembers to call `resume()`.
   @discardableResult
   open func sendRequest(_ request: URLRequest,
-                        completion: @escaping Completion) -> URLSessionTask {
+                        completion: @escaping Completion) -> Cancellable {
     guard self.hasNotBeenInvalidated else {
       completion(.failure(URLSessionClientError.sessionInvalidated))
       return URLSessionTask()

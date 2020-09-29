@@ -5,13 +5,13 @@ import ApolloCore
 
 /// An interceptor which actually fetches data from the network.
 public class NetworkFetchInterceptor: ApolloInterceptor, Cancellable {
-  let client: URLSessionClient
-  private var currentTask: Atomic<URLSessionTask?> = Atomic(nil)
+  let client: HTTPClient
+  private var currentTask: Atomic<Cancellable?> = Atomic(nil)
   
   /// Designated initializer.
   ///
-  /// - Parameter client: The `URLSessionClient` to use to fetch data
-  public init(client: URLSessionClient) {
+  /// - Parameter client: The `HTTPClient` to use to fetch data
+  public init(client: HTTPClient) {
     self.client = client
   }
   
